@@ -345,7 +345,7 @@
     let current = 0;
 
     function buildItems() {
-        items = Array.from(document.querySelectorAll('#services .si-img')).map(el => ({
+        items = Array.from(document.querySelectorAll('#services .si-img:not(.ws-slideshow)')).map(el => ({
             src:     el.querySelector('img').src,
             alt:     el.querySelector('img').alt,
             caption: el.closest('.service-item').querySelector('h5')?.textContent || ''
@@ -371,9 +371,9 @@
 
     document.querySelector('#services .service-items')?.addEventListener('click', e => {
         const siImg = e.target.closest('.si-img');
-        if (!siImg) return;
+        if (!siImg || siImg.classList.contains('ws-slideshow')) return;
         if (!items.length) buildItems();
-        const index = Array.from(document.querySelectorAll('#services .si-img')).indexOf(siImg);
+        const index = Array.from(document.querySelectorAll('#services .si-img:not(.ws-slideshow)')).indexOf(siImg);
         openAt(index);
     });
 
@@ -491,6 +491,10 @@ makeWorkshopSlideshow('halloween-slideshow', 'halloweenLb');
 makeWorkshopSlideshow('christmas-slideshow', 'christmasLb');
 makeWorkshopSlideshow('clay-slideshow',      'clayLb');
 makeWorkshopSlideshow('spatula-slideshow',   'spatulaLb');
+makeWorkshopSlideshow('worli-slideshow',     'worliLb');
+makeWorkshopSlideshow('sunday-slideshow',    'sundayLb');
+makeWorkshopSlideshow('gifting-slideshow',   'giftingLb');
+makeWorkshopSlideshow('custom-paintings-slideshow', 'customPaintingsLb');
 
 // === Generic single-image lightbox for all non-slideshow cards ===
 (function () {
