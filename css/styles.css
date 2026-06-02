@@ -518,6 +518,7 @@
         .lb-prev{left:1rem}
         .lb-next{right:1rem}
         .lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,0.18)}
+        @media(max-width:767px){.lb-prev,.lb-next{display:none}}
         .si-img{cursor:pointer}
 
         /* ========== WORKSHOP SLIDESHOW (Christmas & Halloween) ========== */

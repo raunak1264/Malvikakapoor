@@ -331,6 +331,26 @@
 
 
 
+// === Shared: swipe-to-navigate for lightbox overlays (mobile) ===
+function addSwipeNav(overlay, onPrev, onNext) {
+    let startX = 0, startY = 0, tracking = false;
+    overlay.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) { tracking = false; return; }
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        tracking = true;
+    }, { passive: true });
+    overlay.addEventListener('touchend', e => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) onNext(); else onPrev();
+        }
+    }, { passive: true });
+}
+
 // === Services Lightbox ===
 (function () {
     const overlay  = document.getElementById('lbOverlay');
@@ -357,7 +377,7 @@
         current = ((index % items.length) + items.length) % items.length;
         lbImg.src = items[current].src;
         lbImg.alt = items[current].alt;
-        lbCap.textContent = items[current].caption;
+        lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
         overlay.classList.add('lb-open');
         document.body.style.overflow = 'hidden';
         lbClose.focus();
@@ -382,6 +402,7 @@
     lbNext.addEventListener('click', () => openAt(current + 1));
 
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    addSwipeNav(overlay, () => openAt(current - 1), () => openAt(current + 1));
 
     document.addEventListener('keydown', e => {
         if (!overlay.classList.contains('lb-open')) return;
@@ -404,7 +425,8 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
 
     const slides = Array.from(slideshow.querySelectorAll('.ws-slide'));
     const images = slides.map(s => ({ src: s.src, alt: s.alt }));
-    let current    = 0;
+    let current    = 0;   // index of the visible hover/auto-cycle slide
+    let lbIndex    = 0;   // index shown in the lightbox (decoupled from the cycle)
     let hoverTimer = null;
 
     // --- Improved crossfade: outgoing gets 'leaving', incoming gets 'active' ---
@@ -432,7 +454,10 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
         new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (!hoverTimer) hoverTimer = setInterval(() => showSlide(current + 1), 900);
+                    if (!hoverTimer) hoverTimer = setInterval(() => {
+                        if (overlay.classList.contains('lb-open')) return;
+                        showSlide(current + 1);
+                    }, 900);
                 } else {
                     clearInterval(hoverTimer);
                     hoverTimer = null;
@@ -453,10 +478,10 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
 
     // --- Lightbox ---
     function openAt(index) {
-        current = ((index % images.length) + images.length) % images.length;
-        lbImg.src = images[current].src;
-        lbImg.alt = images[current].alt;
-        lbCounter.textContent = (current + 1) + ' / ' + images.length;
+        lbIndex = ((index % images.length) + images.length) % images.length;
+        lbImg.src = images[lbIndex].src;
+        lbImg.alt = images[lbIndex].alt;
+        lbCounter.textContent = (lbIndex + 1) + ' / ' + images.length;
         overlay.classList.add('lb-open');
         document.body.style.overflow = 'hidden';
         lbClose.focus();
@@ -474,16 +499,17 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
     });
 
     lbClose.addEventListener('click', close);
-    lbPrev.addEventListener('click', () => openAt(current - 1));
-    lbNext.addEventListener('click', () => openAt(current + 1));
+    lbPrev.addEventListener('click', () => openAt(lbIndex - 1));
+    lbNext.addEventListener('click', () => openAt(lbIndex + 1));
 
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    addSwipeNav(overlay, () => openAt(lbIndex - 1), () => openAt(lbIndex + 1));
 
     document.addEventListener('keydown', e => {
         if (!overlay.classList.contains('lb-open')) return;
         if (e.key === 'Escape')     close();
-        if (e.key === 'ArrowLeft')  openAt(current - 1);
-        if (e.key === 'ArrowRight') openAt(current + 1);
+        if (e.key === 'ArrowLeft')  openAt(lbIndex - 1);
+        if (e.key === 'ArrowRight') openAt(lbIndex + 1);
     });
 }
 
