@@ -331,24 +331,103 @@
 
 
 
-// === Shared: swipe-to-navigate for lightbox overlays (mobile) ===
-function addSwipeNav(overlay, onPrev, onNext) {
-    let startX = 0, startY = 0, tracking = false;
-    overlay.addEventListener('touchstart', e => {
-        if (e.touches.length !== 1) { tracking = false; return; }
+// === Shared: Instagram-style drag-to-slide viewer for lightbox overlays (touch only) ===
+const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+// Builds a 3-cell sliding track [prev | current | next] inside an overlay and
+// drives it with real-time finger drag. formatCounter(idx,total)->string fills
+// the overlay's .lb-caption; onCommit(idx) syncs the caller's index after a slide.
+function createSwipeViewer(overlay, formatCounter, onCommit) {
+    const SLIDE_MS = 300;
+    const counter = overlay.querySelector('.lb-caption');
+
+    const viewport = document.createElement('div');
+    viewport.className = 'lb-viewport';
+    const track = document.createElement('div');
+    track.className = 'lb-track';
+    const cellImgs = [0, 1, 2].map(() => {
+        const cell = document.createElement('div');
+        cell.className = 'lb-cell';
+        const img = document.createElement('img');
+        cell.appendChild(img);
+        track.appendChild(cell);
+        return img;
+    });
+    viewport.appendChild(track);
+    overlay.insertBefore(viewport, counter);
+    overlay.classList.add('touch');
+
+    let imgs = [], idx = 0, total = 0;
+    let startX = 0, startY = 0, dx = 0, width = 0;
+    let dragging = false, decided = false, animating = false, settleTimer = null;
+
+    const wrap = i => ((i % total) + total) % total;
+
+    function paint() {
+        cellImgs[0].src = imgs[wrap(idx - 1)].src; cellImgs[0].alt = imgs[wrap(idx - 1)].alt;
+        cellImgs[1].src = imgs[idx].src;           cellImgs[1].alt = imgs[idx].alt;
+        cellImgs[2].src = imgs[wrap(idx + 1)].src; cellImgs[2].alt = imgs[wrap(idx + 1)].alt;
+        track.classList.remove('animate');
+        void track.offsetWidth;                      // reflow so the re-park isn't animated
+        track.style.transform = 'translate3d(-100%,0,0)';
+        counter.textContent = formatCounter(idx, total);
+    }
+
+    function settle(targetPct, newIdx) {
+        animating = true;
+        track.classList.add('animate');
+        track.style.transform = 'translate3d(' + targetPct + '%,0,0)';
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(() => {
+            idx = wrap(newIdx);
+            if (onCommit) onCommit(idx);
+            paint();
+            animating = false;
+        }, SLIDE_MS);
+    }
+
+    viewport.addEventListener('touchstart', e => {
+        if (animating || e.touches.length !== 1) return;
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
-        tracking = true;
+        dx = 0; dragging = false; decided = false;
+        width = viewport.clientWidth;
+        track.classList.remove('animate');
     }, { passive: true });
-    overlay.addEventListener('touchend', e => {
-        if (!tracking) return;
-        tracking = false;
-        const dx = e.changedTouches[0].clientX - startX;
-        const dy = e.changedTouches[0].clientY - startY;
-        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
-            if (dx < 0) onNext(); else onPrev();
+
+    viewport.addEventListener('touchmove', e => {
+        if (animating || e.touches.length !== 1) return;
+        const mx = e.touches[0].clientX - startX;
+        const my = e.touches[0].clientY - startY;
+        if (!decided) {
+            if (Math.abs(mx) < 8 && Math.abs(my) < 8) return;
+            decided = true;
+            dragging = Math.abs(mx) > Math.abs(my);
         }
-    }, { passive: true });
+        if (!dragging) return;
+        e.preventDefault();                          // we own the horizontal gesture
+        dx = mx;
+        track.style.transform = 'translate3d(' + (-100 + (dx / width) * 100) + '%,0,0)';
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', () => {
+        if (animating || !dragging) { dragging = false; return; }
+        dragging = false;
+        const threshold = width * 0.25;
+        if (dx <= -threshold)      settle(-200, idx + 1);
+        else if (dx >= threshold)  settle(0, idx - 1);
+        else                       settle(-100, idx);   // snap back, no index change
+    });
+
+    return {
+        show(newImgs, startIdx) {
+            imgs = newImgs; total = newImgs.length;
+            idx = ((startIdx % total) + total) % total;
+            animating = false; dragging = false; decided = false;
+            clearTimeout(settleTimer);
+            paint();
+        }
+    };
 }
 
 // === Services Lightbox ===
@@ -363,6 +442,9 @@ function addSwipeNav(overlay, onPrev, onNext) {
 
     let items = [];
     let current = 0;
+    const viewer = IS_TOUCH
+        ? createSwipeViewer(overlay, (i, t) => items[i].caption + '  ·  ' + (i + 1) + ' / ' + t, i => { current = i; })
+        : null;
 
     function buildItems() {
         items = Array.from(document.querySelectorAll('#services .si-img:not(.ws-slideshow)')).map(el => ({
@@ -375,11 +457,15 @@ function addSwipeNav(overlay, onPrev, onNext) {
     function openAt(index) {
         if (!items.length) buildItems();
         current = ((index % items.length) + items.length) % items.length;
-        lbImg.src = items[current].src;
-        lbImg.alt = items[current].alt;
-        lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
         overlay.classList.add('lb-open');
         document.body.style.overflow = 'hidden';
+        if (IS_TOUCH) {
+            viewer.show(items, current);
+        } else {
+            lbImg.src = items[current].src;
+            lbImg.alt = items[current].alt;
+            lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
+        }
         lbClose.focus();
     }
 
@@ -402,7 +488,6 @@ function addSwipeNav(overlay, onPrev, onNext) {
     lbNext.addEventListener('click', () => openAt(current + 1));
 
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-    addSwipeNav(overlay, () => openAt(current - 1), () => openAt(current + 1));
 
     document.addEventListener('keydown', e => {
         if (!overlay.classList.contains('lb-open')) return;
@@ -477,13 +562,21 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
     }
 
     // --- Lightbox ---
+    const viewer = IS_TOUCH
+        ? createSwipeViewer(overlay, (i, t) => (i + 1) + ' / ' + t, i => { lbIndex = i; })
+        : null;
+
     function openAt(index) {
         lbIndex = ((index % images.length) + images.length) % images.length;
-        lbImg.src = images[lbIndex].src;
-        lbImg.alt = images[lbIndex].alt;
-        lbCounter.textContent = (lbIndex + 1) + ' / ' + images.length;
         overlay.classList.add('lb-open');
         document.body.style.overflow = 'hidden';
+        if (IS_TOUCH) {
+            viewer.show(images, lbIndex);
+        } else {
+            lbImg.src = images[lbIndex].src;
+            lbImg.alt = images[lbIndex].alt;
+            lbCounter.textContent = (lbIndex + 1) + ' / ' + images.length;
+        }
         lbClose.focus();
     }
 
@@ -503,7 +596,6 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
     lbNext.addEventListener('click', () => openAt(lbIndex + 1));
 
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-    addSwipeNav(overlay, () => openAt(lbIndex - 1), () => openAt(lbIndex + 1));
 
     document.addEventListener('keydown', e => {
         if (!overlay.classList.contains('lb-open')) return;
