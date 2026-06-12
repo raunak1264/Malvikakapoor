@@ -613,6 +613,8 @@ makeWorkshopSlideshow('worli-slideshow',     'worliLb');
 makeWorkshopSlideshow('sunday-slideshow',    'sundayLb');
 makeWorkshopSlideshow('gifting-slideshow',   'giftingLb');
 makeWorkshopSlideshow('custom-paintings-slideshow', 'customPaintingsLb');
+makeWorkshopSlideshow('flower-slideshow',           'flowerLb');
+makeWorkshopSlideshow('ganesha-slideshow',          'ganeshaLb');
 
 // === Generic single-image lightbox for all non-slideshow cards ===
 (function () {
