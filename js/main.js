@@ -25,7 +25,7 @@
             else navbar.classList.remove('scrolled');
         });
 
-        // === Smooth Scroll ===
+        // === Smooth Scroll (for any remaining in-page anchors) ===
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -38,136 +38,13 @@
             });
         });
 
-        // === Filterable Classes ===
-        const filterPills = document.querySelectorAll('.filter-pill');
-        const classCards = document.querySelectorAll('#classesGrid .class-card-compact');
-
-        filterPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                filterPills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                const category = pill.getAttribute('data-category');
-                classCards.forEach(card => {
-                    card.removeAttribute('data-mobile-hidden');
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // === Classes Show More (mobile) ===
+        // === Active Nav via pathname ===
         (function() {
-            const MOBILE_SHOW = 6;
-            const grid = document.getElementById('classesGrid');
-            const btn  = document.getElementById('classesShowMore');
-            if (!grid || !btn) return;
-
-            function applyMobileHide() {
-                const allCards = grid.querySelectorAll('.class-card-compact');
-                if (window.innerWidth >= 768) {
-                    allCards.forEach(c => {
-                        if (c.getAttribute('data-mobile-hidden') === 'true') {
-                            c.removeAttribute('data-mobile-hidden');
-                            c.style.display = '';
-                        }
-                    });
-                    btn.style.display = 'none';
-                    return;
-                }
-                // Restore previously mobile-hidden cards before re-evaluating,
-                // so they aren't mistaken for filter-hidden cards on the next pass.
-                allCards.forEach(c => {
-                    if (c.getAttribute('data-mobile-hidden') === 'true') {
-                        c.removeAttribute('data-mobile-hidden');
-                        c.style.display = '';
-                    }
-                });
-                let shown = 0;
-                allCards.forEach(c => {
-                    if (c.style.display === 'none') return; // filter-hidden
-                    if (shown >= MOBILE_SHOW) {
-                        c.setAttribute('data-mobile-hidden', 'true');
-                        c.style.display = 'none';
-                    }
-                    shown++;
-                });
-                btn.style.display = shown > MOBILE_SHOW ? 'flex' : 'none';
-                btn.classList.remove('expanded');
-                btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg> Show all classes';
-            }
-
-            btn.addEventListener('click', function() {
-                const hidden = grid.querySelectorAll('[data-mobile-hidden="true"]');
-                if (hidden.length) {
-                    hidden.forEach(c => {
-                        c.removeAttribute('data-mobile-hidden');
-                        c.style.display = '';
-                    });
-                    btn.classList.add('expanded');
-                    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg> Show fewer';
-                } else {
-                    applyMobileHide();
-                }
+            const filename = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
+                if (link.getAttribute('href') === filename) link.classList.add('nav-active');
             });
-
-            // Re-apply when a filter pill is clicked
-            document.getElementById('filterPills').addEventListener('click', function() {
-                setTimeout(applyMobileHide, 10);
-            });
-
-            applyMobileHide();
-            window.addEventListener('resize', applyMobileHide);
         })();
-
-        // === Bottom Tab Bar active state ===
-        (function() {
-            const tabs = document.querySelectorAll('.bt-tab');
-            const tabSections = ['about','announcementsFeed','classes','gallery','contact'];
-            const sectionEls = tabSections.map(id => document.getElementById(id)).filter(Boolean);
-            const tabObserver = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        tabs.forEach(t => {
-                            t.classList.toggle('active', t.getAttribute('href') === '#' + entry.target.id);
-                        });
-                    }
-                });
-            }, { threshold: 0.3, rootMargin: '-10% 0px -50% 0px' });
-            sectionEls.forEach(s => tabObserver.observe(s));
-        })();
-
-        // === Active Nav Indicator ===
-        const navSections = document.querySelectorAll('section[id]');
-        const desktopNavLinks = document.querySelectorAll('.nav-links a:not(.nav-book-btn)');
-        const navActiveObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    desktopNavLinks.forEach(link => {
-                        link.classList.remove('nav-active');
-                        if (link.getAttribute('href') === '#' + entry.target.id) {
-                            link.classList.add('nav-active');
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.25, rootMargin: '-80px 0px -55% 0px' });
-        navSections.forEach(s => navActiveObserver.observe(s));
-
-        // === FAB Speed Dial (mobile) ===
-        const fabGroup = document.getElementById('fabGroup');
-        const fabTrigger = document.getElementById('fabTrigger');
-        if (fabGroup && fabTrigger) {
-            fabTrigger.addEventListener('click', e => {
-                e.stopPropagation();
-                fabGroup.classList.toggle('open');
-            });
-            document.addEventListener('click', e => {
-                if (!fabGroup.contains(e.target)) fabGroup.classList.remove('open');
-            });
-        }
 
         // === Scroll Reveal ===
         const revealElements = document.querySelectorAll('.reveal');
@@ -183,8 +60,22 @@
 
         // === Toast Notification ===
         function showToast(msg, isError) {
+            // Announce to screen readers via persistent live region
+            let announcer = document.getElementById('srAnnouncer');
+            if (!announcer) {
+                announcer = document.createElement('div');
+                announcer.id = 'srAnnouncer';
+                announcer.setAttribute('aria-live', 'polite');
+                announcer.setAttribute('aria-atomic', 'true');
+                announcer.className = 'sr-only';
+                document.body.appendChild(announcer);
+            }
+            announcer.textContent = '';
+            requestAnimationFrame(() => { announcer.textContent = msg; });
+
             const t = document.createElement('div');
             t.className = 'form-toast' + (isError ? ' error' : '');
+            t.setAttribute('role', 'status');
             t.textContent = msg;
             document.body.appendChild(t);
             requestAnimationFrame(() => t.classList.add('visible'));
@@ -206,7 +97,7 @@
                 submitBtn.disabled = true;
                 fetch(scriptURL, { method: 'POST', body: new FormData(contactForm) })
                     .then(() => {
-                        showToast('Thank you! We’ll get back to you soon.');
+                        showToast("Thank you! We'll get back to you soon.");
                         contactForm.reset();
                         submitBtn.innerText = originalText;
                         submitBtn.disabled = false;
@@ -220,53 +111,32 @@
             });
         }
 
-        // === Exhibition Form Submission (same Google Apps Script endpoint) ===
-            const exhibitionScriptURL = 'https://script.google.com/macros/s/AKfycbz5aS7NpZZ-OKbwl6N0wF1y9NO0QTIWdvd3frhjBqvsQqv5kFzRMrZiO-MRBTIAVcHa2g/exec';
-
-    const exhibitionForm = document.getElementById('exhibitionForm');
-
-    if (exhibitionForm) {
-
-        const exhibitionBtn = exhibitionForm.querySelector('button[type="submit"]');
-
-        exhibitionForm.addEventListener('submit', e => {
-
-            e.preventDefault();
-
-            const originalText = exhibitionBtn.innerText;
-
-            exhibitionBtn.innerText = 'Submitting…';
-
-            exhibitionBtn.disabled = true;
-
-            fetch(exhibitionScriptURL, {
-                method: 'POST',
-                body: new FormData(exhibitionForm)
-            })
-
-            .then(() => {
-
-                showToast('Exhibition enquiry submitted successfully!');
-
-                exhibitionForm.reset();
-
-                exhibitionBtn.innerText = originalText;
-
-                exhibitionBtn.disabled = false;
-
-            })
-
-            .catch(err => {
-
-                console.error('Error:', err.message);
-
-                showToast('Something went wrong. Please try again.', true);
-
-                exhibitionBtn.innerText = originalText;
-
-                exhibitionBtn.disabled = false;
-
-            });
+        // === Exhibition Form Submission ===
+        const exhibitionScriptURL = 'https://script.google.com/macros/s/AKfycbz5aS7NpZZ-OKbwl6N0wF1y9NO0QTIWdvd3frhjBqvsQqv5kFzRMrZiO-MRBTIAVcHa2g/exec';
+        const exhibitionForm = document.getElementById('exhibitionForm');
+        if (exhibitionForm) {
+            const exhibitionBtn = exhibitionForm.querySelector('button[type="submit"]');
+            exhibitionForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const originalText = exhibitionBtn.innerText;
+                exhibitionBtn.innerText = 'Submitting…';
+                exhibitionBtn.disabled = true;
+                fetch(exhibitionScriptURL, {
+                    method: 'POST',
+                    body: new FormData(exhibitionForm)
+                })
+                .then(() => {
+                    showToast('Exhibition enquiry submitted successfully!');
+                    exhibitionForm.reset();
+                    exhibitionBtn.innerText = originalText;
+                    exhibitionBtn.disabled = false;
+                })
+                .catch(err => {
+                    console.error('Error:', err.message);
+                    showToast('Something went wrong. Please try again.', true);
+                    exhibitionBtn.innerText = originalText;
+                    exhibitionBtn.disabled = false;
+                });
             });
         }
 
@@ -281,12 +151,10 @@
             }
             const latest = rows.slice(-2).reverse();
             cardsEl.innerHTML = latest.map(row => {
-                // support both 'image' and 'image url' column names
                 const imgSrc = row.image || row['image url'] || '';
                 const imgHtml = imgSrc
                     ? `<div class="ann-card-img-wrap"><img class="ann-card-img" src="${imgSrc}" alt="${row.title || 'Announcement'}" loading="lazy" onerror="this.closest('.ann-card-img-wrap').outerHTML='<div class=ann-card-img-placeholder>🎨</div>'"></div>`
                     : `<div class="ann-card-img-placeholder">🎨</div>`;
-                // format the date nicely: "Mon May 11 2026 00:00:00 GMT..." → "11 May 2026"
                 let dateStr = row.date || '';
                 try {
                     const d = new Date(dateStr);
@@ -304,7 +172,6 @@
 
         // Load via <script> tag — bypasses CORS completely
         (function() {
-            // Timeout fallback if script never calls back
             const timer = setTimeout(function() {
                 const l = document.getElementById('annLoading');
                 if (l && l.style.display !== 'none') {
@@ -334,9 +201,6 @@
 // === Shared: Instagram-style drag-to-slide viewer for lightbox overlays (touch only) ===
 const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-// Builds a 3-cell sliding track [prev | current | next] inside an overlay and
-// drives it with real-time finger drag. formatCounter(idx,total)->string fills
-// the overlay's .lb-caption; onCommit(idx) syncs the caller's index after a slide.
 function createSwipeViewer(overlay, formatCounter, onCommit) {
     const SLIDE_MS = 300;
     const counter = overlay.querySelector('.lb-caption');
@@ -368,7 +232,7 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
         cellImgs[1].src = imgs[idx].src;           cellImgs[1].alt = imgs[idx].alt;
         cellImgs[2].src = imgs[wrap(idx + 1)].src; cellImgs[2].alt = imgs[wrap(idx + 1)].alt;
         track.classList.remove('animate');
-        void track.offsetWidth;                      // reflow so the re-park isn't animated
+        void track.offsetWidth;
         track.style.transform = 'translate3d(-100%,0,0)';
         counter.textContent = formatCounter(idx, total);
     }
@@ -405,7 +269,7 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
             dragging = Math.abs(mx) > Math.abs(my);
         }
         if (!dragging) return;
-        e.preventDefault();                          // we own the horizontal gesture
+        e.preventDefault();
         dx = mx;
         track.style.transform = 'translate3d(' + (-100 + (dx / width) * 100) + '%,0,0)';
     }, { passive: false });
@@ -416,7 +280,7 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
         const threshold = width * 0.25;
         if (dx <= -threshold)      settle(-200, idx + 1);
         else if (dx >= threshold)  settle(0, idx - 1);
-        else                       settle(-100, idx);   // snap back, no index change
+        else                       settle(-100, idx);
     });
 
     return {
@@ -510,18 +374,17 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
 
     const slides = Array.from(slideshow.querySelectorAll('.ws-slide'));
     const images = slides.map(s => ({ src: s.src, alt: s.alt }));
-    let current    = 0;   // index of the visible hover/auto-cycle slide
-    let lbIndex    = 0;   // index shown in the lightbox (decoupled from the cycle)
+    let current    = 0;
+    let lbIndex    = 0;
     let hoverTimer = null;
 
-    // --- Improved crossfade: outgoing gets 'leaving', incoming gets 'active' ---
     function showSlide(index) {
         const next = ((index % slides.length) + slides.length) % slides.length;
         if (next === current) return;
         const outgoing = slides[current];
         outgoing.classList.remove('active');
         outgoing.classList.add('leaving');
-        setTimeout(() => outgoing.classList.remove('leaving'), 900);
+        setTimeout(() => outgoing.classList.remove('leaving'), 1500);
         current = next;
         slides[current].classList.add('active');
     }
@@ -535,14 +398,13 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
     if (isTouch) {
-        // Mobile: auto-cycle when card is scrolled into view
         new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     if (!hoverTimer) hoverTimer = setInterval(() => {
                         if (overlay.classList.contains('lb-open')) return;
                         showSlide(current + 1);
-                    }, 900);
+                    }, 1500);
                 } else {
                     clearInterval(hoverTimer);
                     hoverTimer = null;
@@ -552,7 +414,7 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
         }, { threshold: 0.45 }).observe(slideshow);
     } else {
         slideshow.addEventListener('mouseenter', () => {
-            hoverTimer = setInterval(() => showSlide(current + 1), 900);
+            hoverTimer = setInterval(() => showSlide(current + 1), 1500);
         });
         slideshow.addEventListener('mouseleave', () => {
             clearInterval(hoverTimer);
@@ -561,7 +423,6 @@ function makeWorkshopSlideshow(slideshowId, lbId) {
         });
     }
 
-    // --- Lightbox ---
     const viewer = IS_TOUCH
         ? createSwipeViewer(overlay, (i, t) => (i + 1) + ' / ' + t, i => { lbIndex = i; })
         : null;
@@ -637,7 +498,6 @@ makeWorkshopSlideshow('ganesha-slideshow',          'ganeshaLb');
         document.body.style.overflow = '';
     }
 
-    // Auto-wire every non-slideshow image container
     document.querySelectorAll('.wc-img:not(.ws-slideshow), .class-img-wrap:not(.ws-slideshow)').forEach(wrap => {
         const img = wrap.querySelector('img');
         if (!img) return;
@@ -654,5 +514,53 @@ makeWorkshopSlideshow('ganesha-slideshow',          'ganeshaLb');
     document.addEventListener('keydown', e => {
         if (!overlay.classList.contains('lb-open')) return;
         if (e.key === 'Escape') close();
+    });
+})();
+
+// === Back to Top ===
+(function () {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 400) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+// === Classes Show More (mobile) ===
+(function () {
+    const grid = document.getElementById('classesGrid');
+    const showMoreBtn = document.getElementById('classesShowMore');
+    if (!grid || !showMoreBtn) return;
+
+    const INITIAL = 9;
+    const cards = Array.from(grid.querySelectorAll('.class-card-compact'));
+    const label = showMoreBtn.querySelector('span');
+
+    function applyHide() {
+        if (window.innerWidth <= 767) {
+            cards.forEach((c, i) => {
+                if (i >= INITIAL && !showMoreBtn.classList.contains('expanded')) {
+                    c.classList.add('mobile-hidden');
+                }
+            });
+        } else {
+            cards.forEach(c => c.classList.remove('mobile-hidden'));
+        }
+    }
+    applyHide();
+
+    showMoreBtn.addEventListener('click', function () {
+        const expanded = this.classList.contains('expanded');
+        if (expanded) {
+            cards.forEach((c, i) => { if (i >= INITIAL) c.classList.add('mobile-hidden'); });
+            label.textContent = 'Show all classes';
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            cards.forEach(c => c.classList.remove('mobile-hidden'));
+            label.textContent = 'Show fewer';
+        }
+        this.classList.toggle('expanded');
     });
 })();
