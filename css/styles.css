@@ -441,6 +441,8 @@
         .social-links{display:flex;gap:0.75rem}
         .social-link{width:44px;height:44px;background:rgba(255,255,255,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;transition:all 0.3s ease}
         @media(min-width:768px){.social-link:hover{background:var(--gold);transform:translateY(-3px)}}
+        .contact-item .social-link{background:var(--terracotta)}
+        @media(min-width:768px){.contact-item .social-link:hover{background:var(--terracotta-dark)}}
         .footer-links h4{color:white;margin-bottom:1.25rem;font-size:clamp(1.05rem,2.5vw,1.2rem)}
         .footer-links ul{list-style:none;margin:0;padding:0}
         .footer-links ul li{margin-bottom:0.75rem}
