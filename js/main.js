@@ -310,25 +310,20 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
         ? createSwipeViewer(overlay, (i, t) => items[i].caption + '  ·  ' + (i + 1) + ' / ' + t, i => { current = i; })
         : null;
 
-    function buildItems() {
-        items = Array.from(document.querySelectorAll('#services .si-img:not(.ws-slideshow)')).map(el => ({
-            src:     el.querySelector('img').src,
-            alt:     el.querySelector('img').alt,
-            caption: el.closest('.service-item').querySelector('h5')?.textContent || ''
-        }));
-    }
-
     function openAt(index) {
-        if (!items.length) buildItems();
         current = ((index % items.length) + items.length) % items.length;
         overlay.classList.add('lb-open');
         document.body.style.overflow = 'hidden';
+        lbPrev.style.display = items.length === 1 ? 'none' : '';
+        lbNext.style.display = items.length === 1 ? 'none' : '';
         if (IS_TOUCH) {
             viewer.show(items, current);
         } else {
             lbImg.src = items[current].src;
             lbImg.alt = items[current].alt;
-            lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
+            lbCap.textContent = items.length === 1
+                ? items[current].caption
+                : items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
         }
         lbClose.focus();
     }
@@ -339,12 +334,15 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
         document.body.style.overflow = '';
     }
 
-    document.querySelector('#services .service-items')?.addEventListener('click', e => {
+    document.querySelector('#services')?.addEventListener('click', e => {
         const siImg = e.target.closest('.si-img');
         if (!siImg || siImg.classList.contains('ws-slideshow')) return;
-        if (!items.length) buildItems();
-        const index = Array.from(document.querySelectorAll('#services .si-img:not(.ws-slideshow)')).indexOf(siImg);
-        openAt(index);
+        items = [{
+            src:     siImg.querySelector('img').src,
+            alt:     siImg.querySelector('img').alt,
+            caption: siImg.closest('.service-item').querySelector('h5')?.textContent || ''
+        }];
+        openAt(0);
     });
 
     lbClose.addEventListener('click', close);
