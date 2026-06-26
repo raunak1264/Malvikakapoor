@@ -475,6 +475,25 @@ makeWorkshopSlideshow('custom-paintings-slideshow', 'customPaintingsLb');
 makeWorkshopSlideshow('flower-slideshow',           'flowerLb');
 makeWorkshopSlideshow('ganesha-slideshow',          'ganeshaLb');
 
+// === Classes page cards ===
+makeWorkshopSlideshow('stilllife-slideshow',    'stillLifeLb');
+makeWorkshopSlideshow('watercolour-slideshow',  'waterColourLb');
+makeWorkshopSlideshow('landscapes-slideshow',   'landscapesLb');
+makeWorkshopSlideshow('portrait-slideshow',     'portraitLb');
+makeWorkshopSlideshow('resinart-slideshow',     'resinArtLb');
+makeWorkshopSlideshow('abstractart-slideshow',  'abstractArtLb');
+makeWorkshopSlideshow('charcoalart-slideshow',  'charcoalArtLb');
+makeWorkshopSlideshow('penink-slideshow',       'peninkLb');
+makeWorkshopSlideshow('drypastel-slideshow',    'dryPastelLb');
+makeWorkshopSlideshow('oilpastel-slideshow',    'oilPastelLb');
+makeWorkshopSlideshow('madhubani-slideshow',    'madhubaniLb');
+makeWorkshopSlideshow('lippan-slideshow',       'lippanLb');
+makeWorkshopSlideshow('glasspainting-slideshow','glassPaintingLb');
+makeWorkshopSlideshow('fridgemagnets-slideshow','fridgeMagnetsLb');
+makeWorkshopSlideshow('flowermaking-slideshow', 'flowerMakingLb');
+makeWorkshopSlideshow('macrame-slideshow',      'macrameLb');
+makeWorkshopSlideshow('planter-slideshow',      'planterLb');
+
 // === Generic single-image lightbox for all non-slideshow cards ===
 (function () {
     const overlay = document.getElementById('imageLb');
