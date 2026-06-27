@@ -472,7 +472,13 @@ makeWorkshopSlideshow('worli-slideshow',     'worliLb');
 makeWorkshopSlideshow('sunday-slideshow',    'sundayLb');
 makeWorkshopSlideshow('gifting-slideshow',   'giftingLb');
 makeWorkshopSlideshow('custom-paintings-slideshow', 'customPaintingsLb');
+makeWorkshopSlideshow('weddingportrait-slideshow', 'weddingPortraitLb');
+makeWorkshopSlideshow('personalizedportraits-slideshow', 'personalizedPortraitsLb');
+makeWorkshopSlideshow('wallmurals-slideshow', 'wallMuralsLb');
+makeWorkshopSlideshow('threedpainting-slideshow', 'threeDPaintingLb');
+makeWorkshopSlideshow('fabricwearable-slideshow', 'fabricWearableLb');
 makeWorkshopSlideshow('flower-slideshow',           'flowerLb');
+makeWorkshopSlideshow('holicolor-slideshow',        'holiColorLb');
 makeWorkshopSlideshow('ganesha-slideshow',          'ganeshaLb');
 
 // === Classes page cards ===
@@ -493,6 +499,7 @@ makeWorkshopSlideshow('fridgemagnets-slideshow','fridgeMagnetsLb');
 makeWorkshopSlideshow('flowermaking-slideshow', 'flowerMakingLb');
 makeWorkshopSlideshow('macrame-slideshow',      'macrameLb');
 makeWorkshopSlideshow('planter-slideshow',      'planterLb');
+makeWorkshopSlideshow('easteregg-slideshow',    'eastereggLb');
 
 // === Generic single-image lightbox for all non-slideshow cards ===
 (function () {

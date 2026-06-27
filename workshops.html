@@ -102,7 +102,10 @@
                             <div class="wc-body"><h5>Family Art Morning</h5><p>Bring the whole family for a collaborative creative experience.</p></div>
                         </div>
                         <div class="workshop-card">
-                            <div class="wc-img"><img src="https://images.unsplash.com/photo-1596548438137-d51ea5c83ca5?w=400&h=400&fit=crop&q=80" alt="Watercolor Sundays" loading="lazy"></div>
+                            <div class="wc-img ws-slideshow" id="watercolour-slideshow" role="button" tabindex="0" aria-label="Open Watercolor Sundays gallery">
+                                <img src="images/Water Colour/IMG-20220315-WA0023.jpg" alt="Watercolor Sundays 1" class="ws-slide active">
+                                <div class="ws-overlay"><span>&#9670; View Gallery</span></div>
+                            </div>
                             <div class="wc-body"><h5>Watercolor Sundays</h5><p>Dedicated watercolor exploration with guided demonstrations.</p></div>
                         </div>
                         <div class="workshop-card">
@@ -165,7 +168,10 @@
                             <div class="wc-body"><h5>Halloween Art Workshop</h5><p>Spooky pumpkin designs, haunted paintings, and eerie festive creations.</p></div>
                         </div>
                         <div class="workshop-card">
-                            <div class="wc-img"><img src="https://images.unsplash.com/photo-1457301353672-324d6d14f471?w=400&h=400&fit=crop&q=80" alt="Seasonal Workshop" loading="lazy"></div>
+                            <div class="wc-img ws-slideshow" id="holicolor-slideshow" role="button" tabindex="0" aria-label="Open Holi Color Workshop gallery">
+                                <img src="images/Holi Color Workshop/WhatsApp Image 2026-06-27 at 11.26.10 AM.jpeg" alt="Holi Color Workshop 1" class="ws-slide active">
+                                <div class="ws-overlay"><span>&#9670; View Gallery</span></div>
+                            </div>
                             <div class="wc-body"><h5>Holi Color Workshop</h5><p>Vibrant color play with abstract and splash techniques.</p></div>
                         </div>
                     </div>
@@ -183,6 +189,13 @@
                             <div class="wc-img ws-slideshow" id="flower-slideshow" role="button" tabindex="0" aria-label="Open Flower Making gallery">
                                 <img src="images/Flower Making/Flower Making1.jpeg" alt="Flower Making 1" class="ws-slide active">
                                 <img src="images/Flower Making/Flower Making2.jpeg" alt="Flower Making 2" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-26 at 11.29.50 PM.jpeg" alt="Flower Making 3" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-26 at 11.29.52 PM.jpeg" alt="Flower Making 4" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-26 at 11.29.52 PM (1).jpeg" alt="Flower Making 5" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-27 at 12.18.33 PM.jpeg" alt="Flower Making 6" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-27 at 12.24.01 PM.jpeg" alt="Flower Making 7" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-27 at 12.24.02 PM.jpeg" alt="Flower Making 8" class="ws-slide">
+                                <img src="images/Flower Making/WhatsApp Image 2026-06-27 at 12.25.20 PM.jpeg" alt="Flower Making 9" class="ws-slide">
                                 <div class="ws-overlay"><span>&#9670; View Gallery</span></div>
                             </div>
                             <div class="wc-body"><h5>Flower Making Workshops</h5><p>Learn to craft realistic and artistic flowers from diverse materials.</p></div>
@@ -330,6 +343,20 @@
         <img class="lb-img" id="flowerLbImg" src="" alt="">
         <p class="lb-caption" id="flowerLbCounter"></p>
         <button class="lb-next"  id="flowerLbNext"  aria-label="Next">&#8250;</button>
+    </div>
+    <div class="lb-overlay" id="holiColorLb" role="dialog" aria-modal="true" aria-label="Holi Color Workshop Gallery">
+        <button class="lb-close" id="holiColorLbClose" aria-label="Close">&#x2715;</button>
+        <button class="lb-prev"  id="holiColorLbPrev"  aria-label="Previous">&#8249;</button>
+        <img class="lb-img" id="holiColorLbImg" src="" alt="">
+        <p class="lb-caption" id="holiColorLbCounter"></p>
+        <button class="lb-next"  id="holiColorLbNext"  aria-label="Next">&#8250;</button>
+    </div>
+    <div class="lb-overlay" id="waterColourLb" role="dialog" aria-modal="true" aria-label="Watercolor Sundays Gallery">
+        <button class="lb-close" id="waterColourLbClose" aria-label="Close">&#x2715;</button>
+        <button class="lb-prev"  id="waterColourLbPrev"  aria-label="Previous">&#8249;</button>
+        <img class="lb-img" id="waterColourLbImg" src="" alt="">
+        <p class="lb-caption" id="waterColourLbCounter"></p>
+        <button class="lb-next"  id="waterColourLbNext"  aria-label="Next">&#8250;</button>
     </div>
 
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
