@@ -359,6 +359,63 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
     });
 })();
 
+// === My Artworks Lightbox ===
+(function () {
+    const overlay  = document.getElementById('galleryLb');
+    const lbImg    = document.getElementById('galleryLbImg');
+    const lbCap    = document.getElementById('galleryLbCaption');
+    const lbClose  = document.getElementById('galleryLbClose');
+    const lbPrev   = document.getElementById('galleryLbPrev');
+    const lbNext   = document.getElementById('galleryLbNext');
+    if (!overlay) return;
+
+    const cards = Array.from(document.querySelectorAll('#gallery .gallery-grid .gallery-item'));
+    const items = cards.map(card => ({
+        src:     card.querySelector('img').src,
+        alt:     card.querySelector('img').alt,
+        caption: card.querySelector('.gallery-info h4')?.textContent || ''
+    }));
+    let current = 0;
+    const viewer = IS_TOUCH
+        ? createSwipeViewer(overlay, (i, t) => items[i].caption + '  ·  ' + (i + 1) + ' / ' + t, i => { current = i; })
+        : null;
+
+    function openAt(index) {
+        current = ((index % items.length) + items.length) % items.length;
+        overlay.classList.add('lb-open');
+        document.body.style.overflow = 'hidden';
+        if (IS_TOUCH) {
+            viewer.show(items, current);
+        } else {
+            lbImg.src = items[current].src;
+            lbImg.alt = items[current].alt;
+            lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
+        }
+        lbClose.focus();
+    }
+
+    function close() {
+        overlay.classList.remove('lb-open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+    }
+
+    cards.forEach((card, i) => card.addEventListener('click', () => openAt(i)));
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click', () => openAt(current - 1));
+    lbNext.addEventListener('click', () => openAt(current + 1));
+
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+    document.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('lb-open')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowLeft')  openAt(current - 1);
+        if (e.key === 'ArrowRight') openAt(current + 1);
+    });
+})();
+
 // === Shared: Workshop Hover Slideshow + Lightbox factory ===
 function makeWorkshopSlideshow(slideshowId, lbId) {
     const slideshow = document.getElementById(slideshowId);
@@ -470,6 +527,8 @@ makeWorkshopSlideshow('clay-slideshow',      'clayLb');
 makeWorkshopSlideshow('spatula-slideshow',   'spatulaLb');
 makeWorkshopSlideshow('worli-slideshow',     'worliLb');
 makeWorkshopSlideshow('sunday-slideshow',    'sundayLb');
+makeWorkshopSlideshow('diwali-slideshow',    'diwaliLb');
+makeWorkshopSlideshow('summerartcamps-slideshow', 'summerArtCampsLb');
 makeWorkshopSlideshow('gifting-slideshow',   'giftingLb');
 makeWorkshopSlideshow('custom-paintings-slideshow', 'customPaintingsLb');
 makeWorkshopSlideshow('weddingportrait-slideshow', 'weddingPortraitLb');
