@@ -310,7 +310,7 @@
         .ann-card{background:white;border-radius:var(--radius-sm);overflow:hidden;box-shadow:0 3px 16px rgba(0,0,0,0.06);display:flex;flex-direction:column;transition:transform 0.25s ease,box-shadow 0.25s ease;border-left:3px solid var(--gold)}
         .ann-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.1)}
         .ann-card-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--warm-beige)}
-        .ann-card-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+        .ann-card-img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
         .ann-card-img-placeholder{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--warm-beige),var(--cream));display:flex;align-items:center;justify-content:center;font-size:2rem}
         .ann-card-body{padding:1rem 1.1rem 1.25rem;flex:1;display:flex;flex-direction:column;gap:0.35rem}
         .ann-card-date{font-size:0.72rem;color:var(--terracotta);font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
@@ -564,7 +564,7 @@
         .si-img{cursor:pointer}
 
         /* ========== WORKSHOP SLIDESHOW (Christmas & Halloween) ========== */
-        .wc-img:not(.ws-slideshow),.class-img-wrap:not(.ws-slideshow){cursor:zoom-in}
+        .wc-img:not(.ws-slideshow),.class-img-wrap:not(.ws-slideshow),.ann-card-img-wrap{cursor:zoom-in}
         .ws-slideshow{cursor:pointer;overflow:hidden}
         /* !important overrides the lower-specificity .workshop-card .wc-img img transition rule */
         .ws-slide{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;z-index:1;transform:scale(1.07) !important;transition:opacity 0.85s cubic-bezier(0.4,0,0.2,1),transform 1.1s cubic-bezier(0.4,0,0.2,1) !important}

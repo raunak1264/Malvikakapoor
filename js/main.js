@@ -168,6 +168,17 @@
             loading.style.display = 'none';
             cardsEl.style.display = 'grid';
             footer.style.display  = 'block';
+
+            cardsEl.querySelectorAll('.ann-card-img-wrap').forEach(wrap => {
+                const img = wrap.querySelector('img');
+                if (!img || !window.openImageLightbox) return;
+                wrap.setAttribute('tabindex', '0');
+                wrap.setAttribute('role', 'button');
+                wrap.addEventListener('click', () => window.openImageLightbox(img.src, img.alt));
+                wrap.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.openImageLightbox(img.src, img.alt); }
+                });
+            });
         }
 
         // Load via <script> tag — bypasses CORS completely
@@ -574,6 +585,7 @@ makeWorkshopSlideshow('easteregg-slideshow',    'eastereggLb');
         document.body.style.overflow = 'hidden';
         lbClose.focus();
     }
+    window.openImageLightbox = open;
 
     function close() {
         overlay.classList.remove('lb-open');
