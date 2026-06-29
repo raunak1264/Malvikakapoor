@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://malvikakapoorart.com/sitemap.xml
+Sitemap: https://malvikakapoorarts.com/sitemap.xml
