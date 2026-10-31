@@ -42,6 +42,7 @@
                     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
                     "isAccessibleForFree": true,
                     "image": [
+                        "https://malvikakapoorarts.com/images/exhibitions/layers-catalogue-cover-detail.jpg",
                         "https://malvikakapoorarts.com/images/exhibitions/layers-jehangir-art-gallery-installation-bloom-balance-wall.jpg",
                         "https://malvikakapoorarts.com/images/exhibitions/layers-jehangir-art-gallery-installation-elegance-chikankari-series.jpg",
                         "https://malvikakapoorarts.com/images/exhibitions/malvika-kapoor-artist-with-paintings-layers-2026.jpg",
@@ -276,7 +277,7 @@
     </div>
 
     <!-- ========== EXHIBITION HERO ========== -->
-    <section class="exh-hero" id="exhibition">
+    <section class="lx-hero" id="exhibition">
         <div class="container">
             <nav class="exh-breadcrumb" aria-label="Breadcrumb">
                 <ol>
@@ -284,63 +285,77 @@
                     <li aria-current="page">Layers, Jehangir Art Gallery 2026</li>
                 </ol>
             </nav>
-            <div class="exh-hero-grid">
+            <div class="lx-hero-grid">
                 <div>
-                    <span class="exh-status" data-show-until="2026-11-02T19:00:00+05:30">Now showing · until 2 November</span>
-                    <span class="exh-status exh-status-closed" data-show-after="2026-11-02T19:00:00+05:30" hidden>Exhibition closed · paintings still available</span>
-                    <h1>Layers — Malvika Kapoor at Jehangir Art Gallery, Mumbai</h1>
-                    <p class="exh-lede">A solo exhibition of eleven mixed media paintings by contemporary Indian artist Malvika Kapoor, in Exhibition Gallery 3 at Jehangir Art Gallery, Kala Ghoda. The original paintings on show are available to buy.</p>
-                    <dl class="exh-facts">
-                        <dt>Dates</dt><dd>27 October – 2 November 2026</dd>
-                        <dt>Hours</dt><dd>11 am – 7 pm, every day</dd>
-                        <dt>Venue</dt><dd>Exhibition Gallery 3, Jehangir Art Gallery</dd>
-                        <dt>Address</dt><dd>161B, M.G. Road, Kala Ghoda, Fort, Mumbai 400001</dd>
-                        <dt>Entry</dt><dd>Free</dd>
-                    </dl>
-                    <div class="exh-ctas">
+                    <div class="lx-badges">
+                        <span class="exh-status" data-show-until="2026-11-02T19:00:00+05:30">Now showing · until 2 November</span>
+                        <span class="exh-status exh-status-closed" data-show-after="2026-11-02T19:00:00+05:30" hidden>Exhibition closed · paintings still available</span>
+                    </div>
+                    <h1 class="lx-title"><span class="lx-title-main">Layers</span><span class="sr-only"> — </span><span class="lx-title-sub">Malvika Kapoor at Jehangir Art Gallery, Mumbai</span></h1>
+                    <p class="lx-lede">A solo exhibition of eleven mixed media paintings by contemporary Indian artist Malvika Kapoor, in Exhibition Gallery 3 at Jehangir Art Gallery, Kala Ghoda. The original paintings on show are available to buy.</p>
+                    <div class="lx-ctas">
                         <a class="btn btn-primary" href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%27d%20like%20to%20enquire%20about%20a%20painting%20from%20Layers%20at%20Jehangir%20Art%20Gallery." target="_blank" rel="noopener">Enquire on WhatsApp</a>
-                        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=Jehangir+Art+Gallery+Kala+Ghoda+Mumbai" target="_blank" rel="noopener">Get directions</a>
+                        <a class="btn btn-outline-light" href="#works">See the paintings</a>
                     </div>
                 </div>
-                <figure class="exh-hero-img">
+                <figure class="lx-cover">
                     <picture>
-                        <source srcset="/images/AboutMe/Malamasi.webp" type="image/webp">
-                        <img src="/images/AboutMe/Malamasi_opt.jpg" alt="Malvika Kapoor, contemporary Indian artist, seated among her colourful paintings" width="959" height="1200">
+                        <source srcset="/images/exhibitions/layers-catalogue-cover-detail.webp" type="image/webp">
+                        <img src="/images/exhibitions/layers-catalogue-cover-detail.jpg" alt="Detail of a red, pink and green mixed media painting by Malvika Kapoor, used on the cover of the Layers catalogue" width="940" height="959" fetchpriority="high">
                     </picture>
-                    <figcaption>Malvika Kapoor with her paintings.</figcaption>
+                    <figcaption>Detail from the cover of the Layers catalogue.</figcaption>
                 </figure>
             </div>
+            <dl class="lx-facts">
+                <div><dt>Dates</dt><dd>27 October – 2 November 2026</dd></div>
+                <div><dt>Hours</dt><dd>11 am – 7 pm, every day</dd></div>
+                <div><dt>Venue</dt><dd>Exhibition Gallery 3, Jehangir Art Gallery</dd></div>
+                <div><dt>Entry</dt><dd>Free · 161B, M.G. Road, Kala Ghoda, Fort, Mumbai 400001</dd></div>
+            </dl>
         </div>
     </section>
 
-    <!-- ========== EXHIBITION CONTENT ========== -->
-    <section>
-        <div class="container">
-            <article class="exh-prose">
+    <nav class="lx-subnav" aria-label="On this page">
+        <ul>
+            <li><a href="#about">The exhibition</a></li>
+            <li><a href="#works">Paintings</a></li>
+            <li><a href="#installation">Installation views</a></li>
+            <li><a href="#artist">The artist</a></li>
+            <li><a href="#visit">Visit</a></li>
+            <li><a href="#buy">Buy a painting</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+    </nav>
 
-                <h2>About the exhibition</h2>
+    <!-- ========== ABOUT THE EXHIBITION ========== -->
+    <section class="lx-section" id="about">
+        <div class="container lx-split">
+            <div>
+                <p class="lx-label">The exhibition</p>
+                <h2 class="lx-h2">About the exhibition</h2>
+                <blockquote class="lx-quote">Each holds the state of mind that made it; together they form the account of a woman who, through all that life asked of her, kept returning to the canvas.<cite>From the Layers catalogue</cite></blockquote>
+            </div>
+            <div class="lx-prose">
                 <p><strong>Layers</strong> is a solo exhibition of eleven paintings by Malvika Kapoor at Jehangir Art Gallery in Mumbai, running from 27 October to 2 November 2026 in Exhibition Gallery 3. It is her third solo show at Jehangir Art Gallery, after 2012 and 2018.</p>
                 <p>Seen together, the series in Layers trace the artist's passage through time. Each holds the state of mind that made it, and together they form the account of a woman who, through all that life asked of her, kept returning to the canvas.</p>
                 <p>Malvika is an abstract painter working chiefly in mixed media, and she has never kept to a single ground. Laminate, paper, canvas and, lately, black canvas each take pigment on their own terms, and her paintings begin in those unforeseen responses. The works in Layers are on paper, Canson sheet and canvas, and range from intimate 30 × 30 cm canvases to the 80 × 60 cm <a href="/artworks/the-greens">The Greens</a>.</p>
                 <h3>Nature, pattern and chikankari</h3>
                 <p>Nature is her abiding source: gardens, trees and the quiet insistence of life unfolding around her. From these comes her saturated, unapologetic palette, with black, white and brown entering only to steady a composition. Before painting came fashion. Her early ambition to be a designer was absorbed into the work, in her instinct for pattern and in the way texture is draped across a surface.</p>
                 <p>Thirty years in Lucknow have also drawn chikankari into her studio. Murri, tepchi, ghas patti, shadow work and kangan stitches surface in her canvases as embroidered fragments set into paint, many cut from garments she wore for years. Sustainability has grown from that habit into a theme in its own right.</p>
+            </div>
+        </div>
+    </section>
 
-                <h2>About the artist</h2>
-                <figure class="exh-artist-photo">
-                    <picture>
-                        <source srcset="/images/exhibitions/malvika-kapoor-artist-with-paintings-layers-2026.webp" type="image/webp">
-                        <img src="/images/exhibitions/malvika-kapoor-artist-with-paintings-layers-2026.jpg" alt="Malvika Kapoor standing in her studio among framed mixed media paintings" width="1066" height="800" loading="lazy">
-                    </picture>
-                    <figcaption>Malvika Kapoor in her studio, Lucknow.</figcaption>
-                </figure>
-                <p>Malvika Kapoor completed her Bachelor's and Master's in Fine Arts in Painting at Banaras Hindu University in 1996. Marriage brought her to Lucknow that same year, and the city reshaped her practice, drawing her from the discipline of Banaras toward the texture, pattern and colour that now define her work.</p>
-                <p>She received the 25th State Lalit Kala Academy Award (Uttar Pradesh) in 2005, presented by Anjolie Ela Menon, and is a Working Artist at the Lalit Kala Akademi Regional Centre, Lucknow, and a member of the Bombay Art Society. She has exhibited widely, including solo shows at Jehangir Art Gallery (2012, 2018), a group show at the Coomaraswamy Hall, Prince of Wales Museum of Western India, and the 78th All India Art Exhibition of AIFACS, New Delhi (2006).</p>
-                <p>Her paintings are in the collections of the State Lalit Kala Academy, U.P., the Lalit Kala Akademi Regional Centre, Lucknow, ICICI Bank, Lucknow, and the PCC CGST and Customs Office, U.P., and in private collections in India, the USA, Dubai and the Netherlands. She paints from her own atelier, the Malvika Kapoor Art Gallery in Lucknow, which she founded in 1997. <a href="/">Read Malvika's full biography</a>.</p>
-
-                <h2 id="works">Paintings in Layers</h2>
+    <!-- ========== PAINTINGS ========== -->
+    <section class="lx-section lx-section-alt" id="works">
+        <div class="container">
+            <div class="lx-head">
+                <div>
+                    <p class="lx-label">The paintings</p>
+                    <h2 class="lx-h2">Paintings in Layers</h2>
+                </div>
                 <p>All eleven works are originals. Tap a title for the full details, or <strong>Enquire about this painting</strong> to message Malvika on WhatsApp about price and availability.</p>
-            </article>
+            </div>
             <div class="gallery-grid exh-works-grid">
                 <figure class="artwork-card" id="growth">
                     <div class="gallery-item"><picture><source srcset="/images/artworks/malvika-kapoor-growth-painting.webp" type="image/webp"><img src="/images/artworks/malvika-kapoor-growth-painting.jpg" alt="Growth — mixed media on paper by Malvika Kapoor, from the exhibition Layers" loading="lazy"></picture></div>
@@ -387,12 +402,20 @@
                     <figcaption class="artwork-caption"><h3 class="artwork-title"><a href="/artworks/resolve-1">Resolve 1</a></h3><p>54 × 76 cm, mixed media on paper</p><a class="artwork-enquire" href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%20am%20interested%20in%20your%20painting%20%22Resolve%201%22%20from%20Layers.%20Is%20it%20available%3F%20Please%20share%20the%20details%20and%20price." target="_blank" rel="noopener">Enquire about this painting</a></figcaption>
                 </figure>
             </div>
-            <article class="exh-prose">
-                <p>You can also browse <a href="/gallery">Malvika Kapoor's earlier paintings</a>, many of which are mixed media works on paper.</p>
+            <p class="lx-count" style="margin-top:2rem">Also see <a href="/gallery" style="border-bottom:1px solid currentColor">Malvika Kapoor's earlier paintings</a>, many of them mixed media works on paper.</p>
+        </div>
+    </section>
 
-                <h2 id="installation">Layers at Jehangir Art Gallery: installation views</h2>
-                <p>Layers hangs in Exhibition Gallery 3 at Jehangir Art Gallery, Kala Ghoda. These views from the gallery also show works hung alongside the catalogue paintings, including the Balance, Concord, Elegance and Kin series. To ask about any work on the walls, <a href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%20saw%20a%20painting%20at%20Layers%2C%20Jehangir%20Art%20Gallery%2C%20and%20would%20like%20to%20know%20more." target="_blank" rel="noopener">send Malvika a photo on WhatsApp</a>.</p>
-            </article>
+    <!-- ========== INSTALLATION VIEWS ========== -->
+    <section class="lx-section" id="installation">
+        <div class="container">
+            <div class="lx-head">
+                <div>
+                    <p class="lx-label">In the gallery</p>
+                    <h2 class="lx-h2">Layers at Jehangir Art Gallery: installation views</h2>
+                </div>
+                <p>Layers hangs in Exhibition Gallery 3 at Jehangir Art Gallery, Kala Ghoda. These views from the gallery also show works hung alongside the catalogue paintings, including the Balance, Concord, Elegance and Kin series. To ask about any work on the walls, <a href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%20saw%20a%20painting%20at%20Layers%2C%20Jehangir%20Art%20Gallery%2C%20and%20would%20like%20to%20know%20more." target="_blank" rel="noopener" style="color:var(--terracotta-on-light);border-bottom:1px solid currentColor">send Malvika a photo on WhatsApp</a>.</p>
+            </div>
             <div class="gallery-grid exh-install-grid">
                 <figure class="artwork-card">
                     <div class="wc-img install-img"><picture><source srcset="/images/exhibitions/layers-jehangir-art-gallery-installation-bloom-balance-wall.webp" type="image/webp"><img src="/images/exhibitions/layers-jehangir-art-gallery-installation-bloom-balance-wall.jpg" alt="Balance I and II and Bloom I and II, framed mixed media canvases by Malvika Kapoor, on the wall at Jehangir Art Gallery, Mumbai" width="800" height="1000" loading="lazy"></picture></div>
@@ -419,64 +442,108 @@
                     <figcaption class="artwork-caption"><h3 class="artwork-title">Concord I &amp; II and Balance III &amp; IV</h3><p>Framed canvases in pink, violet, orange and blue</p></figcaption>
                 </figure>
             </div>
-            <article class="exh-prose">
+        </div>
+    </section>
 
-                <h2>Visit the exhibition</h2>
+    <!-- ========== THE ARTIST ========== -->
+    <section class="lx-section lx-section-alt" id="artist">
+        <div class="container lx-split">
+            <figure class="lx-artist-photo">
+                <picture>
+                    <source srcset="/images/exhibitions/malvika-kapoor-artist-with-paintings-layers-2026.webp" type="image/webp">
+                    <img src="/images/exhibitions/malvika-kapoor-artist-with-paintings-layers-2026.jpg" alt="Malvika Kapoor standing in her studio among framed mixed media paintings" width="1066" height="800" loading="lazy">
+                </picture>
+                <figcaption>Malvika Kapoor in her studio, Lucknow.</figcaption>
+            </figure>
+            <div class="lx-prose">
+                <p class="lx-label">The artist</p>
+                <h2 class="lx-h2">About the artist</h2>
+                <p>Malvika Kapoor completed her Bachelor's and Master's in Fine Arts in Painting at Banaras Hindu University in 1996. Marriage brought her to Lucknow that same year, and the city reshaped her practice, drawing her from the discipline of Banaras toward the texture, pattern and colour that now define her work.</p>
+                <p>She received the 25th State Lalit Kala Academy Award (Uttar Pradesh) in 2005, presented by Anjolie Ela Menon, and is a Working Artist at the Lalit Kala Akademi Regional Centre, Lucknow, and a member of the Bombay Art Society. She has exhibited widely, including solo shows at Jehangir Art Gallery (2012, 2018), a group show at the Coomaraswamy Hall, Prince of Wales Museum of Western India, and the 78th All India Art Exhibition of AIFACS, New Delhi (2006).</p>
+                <p>Her paintings are in the collections of the State Lalit Kala Academy, U.P., the Lalit Kala Akademi Regional Centre, Lucknow, ICICI Bank, Lucknow, and the PCC CGST and Customs Office, U.P., and in private collections in India, the USA, Dubai and the Netherlands. She paints from her own atelier, the Malvika Kapoor Art Gallery in Lucknow, which she founded in 1997. <a href="/">Read Malvika's full biography</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== VISIT ========== -->
+    <section class="lx-section" id="visit">
+        <div class="container lx-split">
+            <div class="lx-prose">
+                <p class="lx-label">Visit</p>
+                <h2 class="lx-h2">Visit the exhibition</h2>
                 <h3>Jehangir Art Gallery, Kala Ghoda</h3>
                 <p>Jehangir Art Gallery is one of India's best-known exhibition spaces for contemporary art. Founded in 1952, it sits on M.G. Road in Kala Ghoda, South Mumbai's arts district, next to the Chhatrapati Shivaji Maharaj Vastu Sangrahalaya (formerly the Prince of Wales Museum). Layers is in <strong>Exhibition Gallery 3</strong>.</p>
-                <ul>
-                    <li><strong>Address:</strong> 161B, Mahatma Gandhi Road, Kala Ghoda, Fort, Mumbai 400001</li>
-                    <li><strong>Hours:</strong> 11 am – 7 pm daily</li>
-                    <li><strong>Entry:</strong> free, no booking needed</li>
-                </ul>
                 <h3>Getting there</h3>
                 <p>The gallery is a short walk or taxi ride from Churchgate and Chhatrapati Shivaji Maharaj Terminus (CSMT) stations. <a href="https://www.google.com/maps/search/?api=1&amp;query=Jehangir+Art+Gallery+Kala+Ghoda+Mumbai" target="_blank" rel="noopener">Open Jehangir Art Gallery in Google Maps</a>.</p>
+            </div>
+            <aside class="lx-visit-card" aria-label="Visitor information">
+                <h3>Plan your visit</h3>
+                <dl>
+                    <dt>Address</dt><dd>161B, Mahatma Gandhi Road, Kala Ghoda, Fort, Mumbai 400001</dd>
+                    <dt>Gallery</dt><dd>Exhibition Gallery 3</dd>
+                    <dt>Dates</dt><dd>27 October – 2 November 2026</dd>
+                    <dt>Hours</dt><dd>11 am – 7 pm daily</dd>
+                    <dt>Entry</dt><dd>Free, no booking needed</dd>
+                </dl>
+                <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Jehangir+Art+Gallery+Kala+Ghoda+Mumbai" target="_blank" rel="noopener">Get directions</a>
+            </aside>
+        </div>
+    </section>
 
-                <h2>Buying a painting</h2>
+    <!-- ========== BUYING ========== -->
+    <section class="lx-section lx-buy" id="buy">
+        <div class="container">
+            <div class="lx-head">
+                <div>
+                    <p class="lx-label">Collect</p>
+                    <h2 class="lx-h2">Buying a painting</h2>
+                </div>
                 <p>All the paintings in Layers are original works by Malvika Kapoor and are available for purchase. You don't need to visit Mumbai to enquire: you can message the artist from anywhere, and works still available after the exhibition closes can be bought directly from her.</p>
-                <ul>
-                    <li><strong>Enquire:</strong> message the artist on WhatsApp with the title or a photo of the painting.</li>
-                    <li><strong>Details:</strong> you'll receive the size, medium, year and price of the work.</li>
-                    <li><strong>Delivery:</strong> ask about collection or delivery when you enquire.</li>
-                    <!-- TODO: provide — shipping policy (within India / international) and whether a certificate of authenticity is included. -->
-                </ul>
+            </div>
+            <ol class="lx-steps">
+                <li><h3>Enquire</h3><p>Message the artist on WhatsApp with the title or a photo of the painting.</p></li>
+                <li><h3>Get the details</h3><p>You'll receive the size, medium, year and price of the work.</p></li>
+                <li><h3>Delivery</h3><p>Ask about collection or delivery when you enquire.</p></li>
+                <!-- TODO: provide — shipping policy (within India / international) and whether a certificate of authenticity is included. -->
+            </ol>
+            <div class="lx-ctas">
+                <a class="btn btn-primary" href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%27d%20like%20to%20enquire%20about%20a%20painting%20from%20Layers%20at%20Jehangir%20Art%20Gallery." target="_blank" rel="noopener">WhatsApp +91 94509 06271</a>
+                <a class="btn btn-outline-light" href="mailto:malvikakapoor1501@gmail.com?subject=Enquiry%20about%20a%20painting%20from%20Layers">Email the artist</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="exh-cta-box">
-                    <h2>Interested in a painting from Layers?</h2>
-                    <p>Message Malvika directly for the price, size and availability of any work.</p>
-                    <div class="exh-ctas">
-                        <a class="btn btn-primary" href="https://wa.me/919450906271?text=Hi%20Malvika%2C%20I%27d%20like%20to%20enquire%20about%20a%20painting%20from%20Layers%20at%20Jehangir%20Art%20Gallery." target="_blank" rel="noopener">WhatsApp +91 94509 06271</a>
-                        <a class="btn btn-outline-light" href="mailto:malvikakapoor1501@gmail.com?subject=Enquiry%20about%20a%20painting%20from%20Layers">Email the artist</a>
-                    </div>
-                </div>
-
-                <h2>Frequently asked questions</h2>
-                <div class="faq-item">
-                    <h3>Where is Jehangir Art Gallery?</h3>
+    <!-- ========== FAQ ========== -->
+    <section class="lx-section" id="faq">
+        <div class="container">
+            <p class="lx-label">Questions</p>
+            <h2 class="lx-h2">Frequently asked questions</h2>
+            <div class="lx-faq-list">
+                <details class="lx-faq" open>
+                    <summary><h3>Where is Jehangir Art Gallery?</h3></summary>
                     <p>At 161B, Mahatma Gandhi Road, Kala Ghoda, Fort, Mumbai 400001, next to the Chhatrapati Shivaji Maharaj Vastu Sangrahalaya museum. Layers is in Exhibition Gallery 3.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Is entry to the exhibition free?</h3>
+                </details>
+                <details class="lx-faq">
+                    <summary><h3>Is entry to the exhibition free?</h3></summary>
                     <p>Yes. Entry to Jehangir Art Gallery is free.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>When is Layers open?</h3>
+                </details>
+                <details class="lx-faq">
+                    <summary><h3>When is Layers open?</h3></summary>
                     <p>From 27 October to 2 November 2026. Jehangir Art Gallery is open daily from 11 am to 7 pm.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Are the paintings for sale?</h3>
+                </details>
+                <details class="lx-faq">
+                    <summary><h3>Are the paintings for sale?</h3></summary>
                     <p>Yes. The paintings are original works by Malvika Kapoor and are available to buy. Message the artist on WhatsApp at +91 94509 06271 for the price, size and medium of any work.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Can I buy a painting after the exhibition ends?</h3>
+                </details>
+                <details class="lx-faq">
+                    <summary><h3>Can I buy a painting after the exhibition ends?</h3></summary>
                     <p>Yes. Works that are still available after the exhibition can be bought directly from the artist. Enquire on WhatsApp or through the <a href="/contact">contact page</a>.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>How do I enquire about a painting?</h3>
+                </details>
+                <details class="lx-faq">
+                    <summary><h3>How do I enquire about a painting?</h3></summary>
                     <p>Send a WhatsApp message to +91 94509 06271 or email <a href="mailto:malvikakapoor1501@gmail.com">malvikakapoor1501@gmail.com</a> with the title or a photo of the painting you are interested in.</p>
-                </div>
-
-            </article>
+                </details>
+            </div>
         </div>
     </section>
 
