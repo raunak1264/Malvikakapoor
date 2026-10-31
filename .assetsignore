@@ -1,1 +1,4 @@
 .git
+docs
+.DS_Store
+.claude

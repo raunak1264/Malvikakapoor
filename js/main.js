@@ -40,9 +40,21 @@
 
         // === Active Nav via pathname ===
         (function() {
-            const filename = window.location.pathname.split('/').pop() || 'index.html';
+            const norm = p => p.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1');
+            const current = norm(window.location.pathname);
             document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
-                if (link.getAttribute('href') === filename) link.classList.add('nav-active');
+                if (norm(link.getAttribute('href')) === current) link.classList.add('nav-active');
+            });
+        })();
+
+        // === Date-switched content (e.g. "Now showing" until an exhibition closes) ===
+        (function() {
+            const now = Date.now();
+            document.querySelectorAll('[data-show-until]').forEach(el => {
+                if (now > Date.parse(el.dataset.showUntil)) el.hidden = true;
+            });
+            document.querySelectorAll('[data-show-after]').forEach(el => {
+                if (now > Date.parse(el.dataset.showAfter)) el.hidden = false;
             });
         })();
 
@@ -183,6 +195,7 @@
 
         // Load via <script> tag — bypasses CORS completely
         (function() {
+            if (!document.getElementById('annCards')) return;
             const timer = setTimeout(function() {
                 const l = document.getElementById('annLoading');
                 if (l && l.style.display !== 'none') {
@@ -380,15 +393,22 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
     const lbNext   = document.getElementById('galleryLbNext');
     if (!overlay) return;
 
+    const lbEnquire = document.getElementById('galleryLbEnquire');
     const cards = Array.from(document.querySelectorAll('#gallery .gallery-grid .gallery-item'));
     const items = cards.map(card => ({
-        src:     card.querySelector('img').src,
+        src:     card.querySelector('img').currentSrc || card.querySelector('img').src,
         alt:     card.querySelector('img').alt,
-        caption: card.querySelector('.gallery-info h4')?.textContent || ''
+        caption: card.closest('.artwork-card')?.querySelector('.artwork-title')?.textContent || '',
+        enquire: card.closest('.artwork-card')?.querySelector('.artwork-enquire')?.href || ''
     }));
     let current = 0;
+    function setEnquire(i) {
+        if (!lbEnquire) return;
+        lbEnquire.href = items[i].enquire;
+        lbEnquire.hidden = !items[i].enquire;
+    }
     const viewer = IS_TOUCH
-        ? createSwipeViewer(overlay, (i, t) => items[i].caption + '  ·  ' + (i + 1) + ' / ' + t, i => { current = i; })
+        ? createSwipeViewer(overlay, (i, t) => items[i].caption + '  ·  ' + (i + 1) + ' / ' + t, i => { current = i; setEnquire(i); })
         : null;
 
     function openAt(index) {
@@ -402,6 +422,7 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
             lbImg.alt = items[current].alt;
             lbCap.textContent = items[current].caption + '  ·  ' + (current + 1) + ' / ' + items.length;
         }
+        setEnquire(current);
         lbClose.focus();
     }
 
@@ -412,6 +433,7 @@ function createSwipeViewer(overlay, formatCounter, onCommit) {
     }
 
     cards.forEach((card, i) => card.addEventListener('click', () => openAt(i)));
+    lbEnquire?.addEventListener('click', e => e.stopPropagation());
 
     lbClose.addEventListener('click', close);
     lbPrev.addEventListener('click', () => openAt(current - 1));
