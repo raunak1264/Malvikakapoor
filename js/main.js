@@ -32,7 +32,9 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     const navHeight = document.getElementById('navbar').offsetHeight;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    const subnav = document.querySelector('.lx-subnav');
+                    const offset = navHeight + (subnav ? subnav.offsetHeight : 0);
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                     window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             });
@@ -680,4 +682,24 @@ makeWorkshopSlideshow('easteregg-slideshow',    'eastereggLb');
         }
         this.classList.toggle('expanded');
     });
+})();
+
+// === Exhibition page: highlight the section in view in the "On this page" bar ===
+(function () {
+    const links = Array.from(document.querySelectorAll('.lx-subnav a[href^="#"]'));
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            links.forEach(a => a.classList.remove('is-active'));
+            const link = byId.get(entry.target.id);
+            if (link) {
+                link.classList.add('is-active');
+                const bar = link.closest('ul');
+                bar.scrollTo({ left: link.parentElement.offsetLeft - 16, behavior: 'smooth' });
+            }
+        });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    byId.forEach((_, id) => { const el = document.getElementById(id); if (el) observer.observe(el); });
 })();
