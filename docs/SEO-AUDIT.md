@@ -571,7 +571,8 @@ Scoring: **Impact** (authority and relevance of the link) · **Difficulty** · *
 5. **Prince of Wales Museum group show:** the homepage says 2014. The catalogue gives no year.
 
 **Still needed:**
-1. **Year** of each Layers painting, **price** (or confirm "On request"), and which are **sold**.
+1. **Works shown at Jehangir but not in the catalogue:** Balance I–IV, Concord I & II, Elegance I–VI, Kin I & II, Seasons (IV and others?) and the ochre series in wooden frames. They appear in the installation photos on the exhibition page. Send size, medium and a flat photo of each to give them artwork pages.
+2. **Year** of each Layers painting, **price** (or confirm "On request"), and which are **sold**.
 2. **Shipping:** within India and abroad, framed or rolled, and whether a certificate of authenticity is included.
 3. **Will Malvika be at the gallery** on 1–2 November? If yes, add "Meet the artist" to the page.
 4. **Testimonials:** are the three on the homepage real? If not, remove them.

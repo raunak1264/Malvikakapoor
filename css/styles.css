@@ -659,3 +659,10 @@
         .gallery-group-intro{color:var(--deep-brown);margin-bottom:1.75rem}
         .gallery-group-intro a{color:var(--terracotta-on-light);border-bottom:1px solid currentColor}
         .gallery-grid + .gallery-group-title{margin-top:4rem}
+        .exh-install-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:0.5rem 0 2.5rem}
+        @media(min-width:768px){.exh-install-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+        .exh-install-grid figure{margin:0}
+        .exh-install-grid .wc-img{border-radius:var(--radius-md);overflow:hidden;background:var(--warm-beige)}
+        .exh-install-grid img{width:100%;aspect-ratio:9/16;object-fit:cover}
+        .exh-install-grid figcaption{font-size:0.85rem;color:var(--deep-brown);padding-top:0.5rem;line-height:1.5}
+        .exh-install-grid figcaption a{color:var(--terracotta-on-light);border-bottom:1px solid currentColor}
