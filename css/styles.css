@@ -775,3 +775,51 @@
         .ly-faq p{margin:0 0 1.5rem;max-width:600px;font-size:1rem;line-height:1.75;color:var(--deep-brown)}
         .ly-faq p a{color:var(--terracotta-on-light);border-bottom:1px solid currentColor}
         #exhibition,#about,#works,#installation,#artist,#faq{scroll-margin-top:var(--nav-height)}
+        /* ========== EXHIBITION PAGE: AFTER THE SHOW ========== */
+        .la-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--terracotta-on-light)}
+        .la-hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:2rem 3.5rem}
+        .la-hero-title{flex:1 1 520px;min-width:0}
+        .la-hero-intro{flex:0 1 400px;min-width:0}
+        .la-hero-intro p{font-size:1.06rem;line-height:1.7;color:var(--deep-brown);margin:0 0 1.6rem}
+        .la-hero-img{margin:clamp(3rem,6vw,4.5rem) 0 0}
+        .la-hero-img img{width:100%;aspect-ratio:21/10;object-fit:cover;object-position:50% 62%}
+        .la-hero-img figcaption,.la-shot figcaption{font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;color:#5C4A40;margin-top:0.75rem}
+        .la-signpost-section{padding-bottom:0}
+        .la-signposts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:1.5rem}
+        .la-sign{display:block;border:1px solid #E6DDD2;padding:clamp(1.75rem,3.5vw,2.75rem);color:var(--charcoal);transition:border-color 0.2s ease,background 0.2s ease}
+        .la-sign:hover{border-color:var(--terracotta-on-light);background:#FDFBF8}
+        .la-numeral{display:block;font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--terracotta-on-light);margin:0 0 0.75rem}
+        .la-sign-title{display:block;font-family:'Playfair Display',serif;font-size:1.9rem;letter-spacing:-0.01em;margin-top:0.25rem}
+        .la-sign-text{display:block;font-size:0.95rem;color:#5C4A40;margin-top:0.6rem}
+        .la-part-title{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:clamp(2.5rem,5vw,4rem)}
+        .ly-head .la-part-title{margin-bottom:0}
+        .la-story{margin-bottom:clamp(3.5rem,7vw,5.5rem)}
+        /* Photo essay */
+        .la-essay{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:340px;gap:20px}
+        .la-shot{margin:0;position:relative;overflow:hidden;background:#EFE8DF}
+        .la-shot .wc-img,.la-shot picture{display:block;height:100%}
+        .la-shot img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+        .la-shot .wc-img:hover img{transform:scale(1.02)}
+        .la-shot figcaption{position:absolute;left:14px;bottom:14px;max-width:calc(100% - 28px);margin:0;background:rgba(250,247,243,0.92);font-family:'DM Sans',sans-serif;font-style:normal;font-size:0.8rem;line-height:1.4;padding:6px 10px;color:var(--deep-brown);pointer-events:none}
+        .e01{grid-column:1 / 6;grid-row:span 2}
+        .e09,.e15{grid-column:6 / 13}
+        .e02,.e14{grid-column:1 / 8}
+        .e10{grid-column:8 / 13;grid-row:span 2}
+        .e17{grid-column:1 / 5;grid-row:span 2}
+        .la-note{grid-column:5 / 13;grid-row:span 2;background:#F3EDE5;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.75rem,4vw,4rem)}
+        .la-note-text{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.35;letter-spacing:-0.01em;color:var(--charcoal);margin:0}
+        @media(max-width:760px){
+            .la-essay{grid-template-columns:minmax(0,1fr);grid-auto-rows:auto}
+            .la-shot,.la-note{grid-column:1 / -1 !important;grid-row:auto !important}
+            .la-shot{aspect-ratio:3/2}
+            .la-shot.e01,.la-shot.e10,.la-shot.e17{aspect-ratio:2/3}
+        }
+        /* How to buy */
+        .la-buy{margin-top:clamp(4rem,8vw,6.5rem);background:var(--charcoal);color:var(--cream);padding:clamp(2rem,4.5vw,4rem);display:flex;flex-wrap:wrap;gap:2rem 4rem;align-items:center;scroll-margin-top:calc(var(--nav-height) + 1rem)}
+        .la-buy-head{flex:1 1 320px;min-width:0}
+        .la-buy-head .ly-label{color:#CDBFB2}
+        .la-buy-head h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(1.75rem,3vw,2.4rem);letter-spacing:-0.01em;line-height:1.15;margin:0;color:var(--cream)}
+        .la-buy-steps{flex:1 1 380px;min-width:0;margin:0}
+        .la-buy-ctas{flex:1 1 100%}
+        .la-buy .ly-link{color:var(--cream)}
+        #exhibition-top,#exhibition,#works,#artist,#faq{scroll-margin-top:var(--nav-height)}
