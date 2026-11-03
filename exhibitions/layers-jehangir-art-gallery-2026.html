@@ -270,6 +270,25 @@
                             }
                         }
                     ]
+                },
+                {
+                    "@type": "VideoObject",
+                    "@id": "https://malvikakapoorarts.com/exhibitions/layers-jehangir-art-gallery-2026#film",
+                    "name": "My Third Solo Exhibition at Jehangir Art Gallery, Mumbai!",
+                    "description": "A short film from Layers, Malvika Kapoor's third solo exhibition at Jehangir Art Gallery, Mumbai (27 October – 2 November 2026).",
+                    "thumbnailUrl": [
+                        "https://malvikakapoorarts.com/images/exhibitions/layers-jehangir-2026-film-poster.jpg"
+                    ],
+                    "uploadDate": "2026-11-03T07:15:10-08:00",
+                    "duration": "PT1M30S",
+                    "embedUrl": "https://www.youtube.com/embed/C30RCu8ILZs",
+                    "url": "https://www.youtube.com/shorts/C30RCu8ILZs",
+                    "creator": {
+                        "@id": "https://malvikakapoorarts.com/#malvika-kapoor"
+                    },
+                    "about": {
+                        "@id": "https://malvikakapoorarts.com/exhibitions/layers-jehangir-art-gallery-2026#event"
+                    }
                 }
             ]
         }
@@ -280,7 +299,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/styles.css?v=20261103">
+    <link rel="stylesheet" href="/css/styles.css?v=20261104">
 </head>
 <body>
 
@@ -359,7 +378,7 @@
 
     <section class="ly-section la-signpost-section" aria-label="On this page">
         <div class="ly-wrap la-signposts">
-            <a class="la-sign" href="#exhibition"><span class="la-numeral">I</span><span class="la-sign-title">The exhibition</span><span class="la-sign-text">The story of Layers, and the week in Gallery 3 in photographs.</span></a>
+            <a class="la-sign" href="#exhibition"><span class="la-numeral">I</span><span class="la-sign-title">The exhibition</span><span class="la-sign-text">The story of Layers, a short film, and the week in Gallery 3 in photographs.</span></a>
             <a class="la-sign" href="#works"><span class="la-numeral">II</span><span class="la-sign-title">The paintings</span><span class="la-sign-text">All eleven works, available to buy. Ask about any painting on WhatsApp.</span></a>
         </div>
     </section>
@@ -377,6 +396,26 @@
                 <div class="ly-prose">
                     <p>Layers brought together eleven mixed media paintings on paper, Canson sheet and canvas, hung alongside the Balance, Concord, Elegance, Kin and Seasoned series. It was Malvika's third solo show at Jehangir Art Gallery, after 2012 and 2018.</p>
                     <p>Malvika is an abstract painter working chiefly in mixed media. Nature is her abiding source, and thirty years in Lucknow have drawn chikankari into the work: embroidered fragments set into paint, many cut from garments she wore for years.</p>
+                </div>
+            </div>
+            <div class="la-film">
+                <div class="la-film-screen">
+                    <div class="la-film-player">
+                        <a class="la-film-poster" href="https://www.youtube.com/shorts/C30RCu8ILZs" data-youtube-id="C30RCu8ILZs" data-youtube-title="My Third Solo Exhibition at Jehangir Art Gallery, Mumbai!" aria-label="Play the film: My third solo exhibition at Jehangir Art Gallery, Mumbai (1 minute 30 seconds)">
+                            <picture>
+                                <source srcset="/images/exhibitions/layers-jehangir-2026-film-poster.webp" type="image/webp">
+                                <img src="/images/exhibitions/layers-jehangir-2026-film-poster.jpg" alt="The entrance of Jehangir Art Gallery, Mumbai, the opening frame of the film" width="720" height="1280" loading="lazy">
+                            </picture>
+                            <span class="la-film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+                            <span class="la-film-time">1:30</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="la-film-text">
+                    <p class="ly-label">Film</p>
+                    <h3>A walk through Layers</h3>
+                    <p>Ninety seconds from the exhibition at Jehangir Art Gallery, in Malvika's words: “My third solo exhibition at Jehangir Art Gallery, Mumbai.”</p>
+                    <a class="ly-link" href="https://www.youtube.com/shorts/C30RCu8ILZs" target="_blank" rel="noopener">Watch on YouTube</a>
                 </div>
             </div>
             <div class="la-essay">
@@ -594,5 +633,6 @@
     </button>
 
     <script src="/js/main.js" defer></script>
+    <script src="/js/video-facade.js" defer></script>
 </body>
 </html>
